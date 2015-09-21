@@ -59,10 +59,6 @@ function Quarterback(name, team) {
 	}
 }
 
-var tonyRomo = new Quarterback('Tony Romo', 'Dallas Cowboys');
-var eliManning = new Quarterback('Eli Manning','New York Giants');
-
-
 var tonyRomo = {
 	name: 'Tony Romo',
 	team: 'Dallas Cowboys',
@@ -100,8 +96,6 @@ console.log(eliManning.completionPercentage());
 
 //Rushing Stats
 
-var
-
 function Rushing(name, team) {
 	this.name = name;
 	this.team = team;
@@ -118,6 +112,7 @@ function Rushing(name, team) {
     return this.yards / this.attempts;
   	}
   	this.addAttempt = function(type, yards){
+    	type = type.toLowerCase();
     	if(type === 'fumble'){
 	      	this.attempts++;
 	      	this.fumbles++;
@@ -140,8 +135,45 @@ function Rushing(name, team) {
   	}
 }
 
-	
+// Kicking Stats
 
+function Kicking(name, team) {
+  	this.name = name;
+  	this.team = team;
+  	this.type = 'Kicking';
+  	this.attempts = 0;
+  	this.made = 0;
+  	this.longestFieldGoal = 0;
+  	this.missed = 0;
+
+  	this.fieldGoalPercentage = function(){
+    	return Math.round(this.attempts / this.made * 100)+'%';
+  		};
+  	this.addAttempt = function(type,yards){
+  		type = type.toLowerCase();
+    	if(type === 'made'){
+      		this.made++;
+      		this.attempts++;
+      	if(yards > this.longestFieldGoal){
+        	this.longestFieldGoal = yards;
+      	}
+    }	
+    	else if(type === 'missed'){
+      		this.attempts++;
+    }
+  }
+}
+
+
+
+var tonyRomo = new Quarterback('Tony Romo', 'Dallas Cowboys');
+var eliManning = new Quarterback('Eli Manning','New York Giants');
+
+var deAngelo = new Rushing('DeAngelo Williams', 'Pittsburg Steelers');
+var carlosHyde = new Rushing('Carlos Hyde','San Francisco 49ers');
+
+var joshBrown = new Kicking('Josh Brown','New York Giants');
+var shaunSuisham = new Kicking('Shaun Suisham', 'Pittsburg Steelers');
 
 
 
