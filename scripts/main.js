@@ -1,5 +1,6 @@
 'use strict';
 
+// Quarterback Stats 
 
 function Quarterback(name, team) {
 	this.name = name;
@@ -46,6 +47,9 @@ function Quarterback(name, team) {
 			this.attempts++;
 			this.completions++;
 			this.yards += yards;
+				if(yards > this.longestCompletion){
+					this.longestCompletion = yards;
+				}
 		}
 		else if(type === 'sack') {
 			this.attempts++;
@@ -56,7 +60,7 @@ function Quarterback(name, team) {
 }
 
 var tonyRomo = new Quarterback('Tony Romo', 'Dallas Cowboys');
-var eliManning = new Quarterback('Eli Mannine','New York Giants');
+var eliManning = new Quarterback('Eli Manning','New York Giants');
 
 
 var tonyRomo = {
@@ -79,21 +83,64 @@ console.log(tonyRomo.completionPercentage());
 var eliManning = {
 	name: 'Eli Manning',
 	team: 'New York Giants',
-	attempts: 12,
-	completions: 2,
-	yards: 0,
-	touchdowns: 0,
+	attempts: 76,
+	completions: 47,
+	yards: 485,
+	touchdowns: 2,
 	interceptions: 0,
-	sacks: 0,
-	longestCompletion: 0,
+	sacks: 3,
+	longestCompletion: 67,
 	completionPercentage: function() {
 		return Math.round(this.completions / this.attempts * 100)+'%';
 	}
+
 };
 
 console.log(eliManning.completionPercentage());
 
+//Rushing Stats
 
+var
+
+function Rushing(name, team) {
+	this.name = name;
+	this.team = team;
+	this.type = 'Rushing';
+	this.attempts = 0;
+	var yards = 0;
+	this.touchdowns = 0;
+	this.firstDowns = 0;
+	this.fumbles = 0;
+	this.longestRush = 0;
+	this.over20 = 0;
+
+	this.yardsPerAttempt = function(){
+    return this.yards / this.attempts;
+  	}
+  	this.addAttempt = function(type, yards){
+    	if(type === 'fumble'){
+	      	this.attempts++;
+	      	this.fumbles++;
+	      	this.yards += yards;
+	    }else if(type === 'first down'){
+		    this.firstDowns++;
+		    this.attempts++;
+		    this.yards += yards;
+	    }else if(type === 'touchdown'){
+		    this.touchdowns++;
+		    this.attempts++;
+		    this.yards += yards;
+		      if(yards > this.longestRush){
+		        this.longestRush = yards;
+		      }
+		      if(yards > 20){
+		        this.over20++;
+		      }
+    	}
+  	}
+}
+
+	
 
 
 
